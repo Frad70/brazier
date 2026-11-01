@@ -22,7 +22,7 @@ usage: brazier [--total] [--fps N] [--info]
   --fps N    frames per second, 1 to 120 (default 30)
   --info     show load and temperature from the start
 
-keys: q or Esc quits, i toggles the readout";
+keys: q, Esc or Ctrl-C quits, i toggles the readout";
 
 struct Options {
     total: bool,
@@ -157,7 +157,7 @@ fn run(opts: &Options) -> io::Result<()> {
 }
 
 // The colder the CPU, the cooler the bottom of the flame:
-// orange at 40 °C and below, white at 90 °C and above.
+// amber at 40 °C and below, white at 90 °C and above.
 fn base_heat(temp: Option<f32>) -> u8 {
     let Some(t) = temp else { return 30 };
     let k = ((t - 40.0) / 50.0).clamp(0.0, 1.0);
